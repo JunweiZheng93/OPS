@@ -1,0 +1,130 @@
+# OPS: Open Panoramic Segmentation
+
+## Homepage
+
+
+## Prerequisites
+
+Please make sure your CUDA is >= 11.6 since we need to compile some operators. You can use the following command to check your CUDA version:
+
+```bash
+nvcc --version
+```
+
+Then install all necessary packages:
+
+```bash
+conda create -n OPS python=3.9 -y
+conda activate OPS
+conda install pytorch==2.0.1 torchvision==0.15.2 pytorch-cuda=11.7 -c pytorch -c nvidia -y
+pip install -U openmim
+mim install mmengine==0.9.0
+mim install mmcv==2.1.0
+pip install timm==0.9.8 einops==0.7.0 ftfy==6.1.1 pkbar==0.5 prettytable==3.9.0 py360convert==0.1.0 regex==2023.10.3 six==1.16.0
+cd mmseg/models/dcnv3 && bash make.sh
+```
+
+## Datasets
+
+We train our model on COCO-Stuff164k dataset while testing on WildPASS, Matterport3D and Stanford2D3D datasets.
+The dataset folder structure is as follows:
+
+```
+OPS
+├── mmseg
+├── configs
+├── pretrains
+│   ├── ViT-B-16.pt
+├── data
+│   ├── coco_stuff164k
+│   │   ├── images
+│   │   │   ├── train2017
+│   │   │   ├── val2017
+│   │   ├── annotations
+│   │   │   ├── train2017
+│   │   │   ├── val2017
+│   ├── matterport3d
+│   │   ├── val
+│   │   │   ├── rgb
+│   │   │   ├── semantic
+│   ├── s2d3d
+│   │   ├── area1_3_6
+│   │   │   ├── rgb
+│   │   │   ├── semantic
+│   │   ├── area2_4
+│   │   │   ├── rgb
+│   │   │   ├── semantic
+│   │   ├── area5
+│   │   │   ├── rgb
+│   │   │   ├── semantic
+│   ├── WildPASS
+│   │   ├── images
+│   │   │   ├── val
+│   │   ├── annotations
+│   │   │   ├── val
+```
+
+### COCO-Stuff164k
+
+Please follow [this link](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/user_guides/2_dataset_prepare.md#coco-stuff-164k) to download
+and preprocess COCO-Stuff164k dataset. As for the RERP data augmentation, please use the following command:
+
+```bash
+python tools/dataset_converters/add_erp.py --shuffle
+```
+
+### WildPASS
+
+Please follow [WildPASS official repository](https://github.com/elnino9ykl/WildPASS) to download
+and preprocess WildPASS dataset.
+
+### Matterport3D
+
+Please follow [360BEV official repository](https://github.com/jamycheung/360BEV) to download
+and preprocess Matterport3D dataset.
+
+### Stanford2D3D
+
+Please follow [360BEV official repository](https://github.com/jamycheung/360BEV) to download
+and preprocess Stanford2D3D dataset.
+
+## Pretrained CLIP
+
+Please download the pretrained CLIP using [this link](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt).
+Then use `tools/model_converters/clip2mmseg.py` to convert model into mmseg style:
+
+```bash
+python tools/model_converters/clip2mmseg.py <MODEL_PATH> <OUTPUT_PATH> 
+```
+
+The processed model should be placed in `pretrains` folder in the end (see dataset folder structure).
+
+## Checkpoints
+
+The checkpoints can be downloaded from: <br>
+[Checkpoint without RERP](https://drive.google.com/file/d/1JlKFYKNc6MsRAyI5loAI0A4co5a87SHX/view?usp=sharing)  <br>
+[Checkpoint with RERP](https://drive.google.com/file/d/1Wuc8bmmRMTxSwgrMZ_0MK1DkWLtUppvj/view?usp=sharing)
+
+## Usage
+
+### Train
+
+Please use the following command to train the model:
+
+```bash
+bash tools/dist_train.sh <CONFIG_PATH> <GPU_NUM>
+```
+
+`<CONFIG_PATH>` should be the path of the COCO_Stuff164k config file.
+
+### Test
+
+Please use the following command to test the model:
+
+```bash
+bash tools/dist_test.sh <CONFIG_PATH> <CHECKPOINT_PATH> <GPU_NUM>
+```
+
+`<CONFIG_PATH>` should be the path of the WildPASS, Matterport3D or Stanford2D3D config file. `<CHECKPOINT_PATH>` should be the path of the COCO_Stuff164k checkpoint file.
+
+## Citation
