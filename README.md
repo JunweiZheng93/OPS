@@ -1,7 +1,22 @@
 # OPS: Open Panoramic Segmentation
 
+<p>
+<a href="https://arxiv.org/pdf/2407.02685">
+    <img src="https://img.shields.io/badge/PDF-arXiv-brightgreen" /></a>
+<a href="https://junweizheng93.github.io/publications/OPS/OPS.html">
+    <img src="https://img.shields.io/badge/Project-Homepage-red" /></a>
+<a href="https://pytorch.org/">
+    <img src="https://img.shields.io/badge/Framework-PyTorch-orange" /></a>
+<a href="https://github.com/open-mmlab/mmsegmentation">
+    <img src="https://img.shields.io/badge/Framework-mmsegmentation%201.x-yellowgreen" /></a>
+<a href="https://github.com/JunweiZheng93/OPS/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" /></a>
+</p>
+
+
 ## Homepage
 
+This project has been accepted by ECCV 2024! For more information about the project, please refer to our [project homepage](https://junweizheng93.github.io/publications/OPS/OPS.html).
 
 ## Prerequisites
 
