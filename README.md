@@ -128,3 +128,13 @@ bash tools/dist_test.sh <CONFIG_PATH> <CHECKPOINT_PATH> <GPU_NUM>
 `<CONFIG_PATH>` should be the path of the WildPASS, Matterport3D or Stanford2D3D config file. `<CHECKPOINT_PATH>` should be the path of the COCO_Stuff164k checkpoint file.
 
 ## Citation
+If you are interested in this work, please cite as below:
+
+```text
+@inproceedings{zheng2024open,
+title={Open Panoramic Segmentation},
+author={Zheng, Junwei and Liu, Ruiping and Chen, Yufan and Peng, Kunyu and Wu, Chengzhi and Yang, Kailun and Zhang, Jiaming and Stiefelhagen, Rainer},
+booktitle={European Conference on Computer Vision (ECCV)},
+year={2024}
+}
+```
