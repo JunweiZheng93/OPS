@@ -9,6 +9,7 @@ from mmengine.logging import print_log
 from mmengine.runner import Runner
 
 from mmseg.registry import RUNNERS
+import ops
 
 
 def parse_args():

@@ -32,11 +32,13 @@ Then install all necessary packages:
 conda create -n OPS python=3.9 -y
 conda activate OPS
 conda install pytorch==2.0.1 torchvision==0.15.2 pytorch-cuda=11.7 -c pytorch -c nvidia -y
-pip install -U openmim
+pip install lit==18.1.8 numpy==1.23.1 cmake==3.30.4
+pip install openmim==0.3.9
 mim install mmengine==0.9.0
 mim install mmcv==2.1.0
+mim install mmsegmentation==1.2.2
 pip install timm==0.9.8 einops==0.7.0 ftfy==6.1.1 pkbar==0.5 prettytable==3.9.0 py360convert==0.1.0 regex==2023.10.3 six==1.16.0
-cd mmseg/models/dcnv3 && bash make.sh
+cd ops/models/dcnv3 && bash make.sh
 ```
 
 ## Datasets
@@ -46,7 +48,7 @@ The dataset folder structure is as follows:
 
 ```
 OPS
-├── mmseg
+├── ops
 ├── configs
 ├── pretrains
 │   ├── ViT-B-16.pt
@@ -77,6 +79,8 @@ OPS
 │   │   │   ├── val
 │   │   ├── annotations
 │   │   │   ├── val
+├── tools
+├── README.md
 ```
 
 ### COCO-Stuff164k
