@@ -14,7 +14,7 @@ model = dict(
     pretrained=pretrained,
     text_encoder=dict(dataset_name=None,
                       vocabulary=['car', 'truck', 'bus', 'road', 'sidewalk', 'person', 'curb', 'crosswalk']),
-    decode_head=dict(num_classes=8, ops_cfg=dict(cfg_dcnv4=dict(dw_kernel_size=3))),
+    decode_head=dict(num_classes=8, ops_cfg=dict(cfg_dao=dict(dw_kernel_size=3))),
     test_cfg=dict(mode='slide', crop_size=crop_size, stride=(320, 320))
 )
 test_pipeline = [

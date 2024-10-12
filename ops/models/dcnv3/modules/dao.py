@@ -4,7 +4,7 @@ from einops import rearrange, repeat
 from .dcnv3 import DCNv3
 
 
-class DCNv4(nn.Module):
+class DAO(nn.Module):
     def __init__(self,
                  channels=3,  # both input and output channels
                  group=3,  # channel has to be divisible by group

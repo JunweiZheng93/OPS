@@ -22,7 +22,7 @@ from mmseg.utils import (ConfigType, MatchMasks, SampleList,
 from mmseg.models.utils import (MLP, LayerNorm2d, PatchEmbed, cross_attn_layer,
                      get_uncertain_point_coords_with_randomness, resize)
 from mmseg.models.decode_heads.decode_head import BaseDecodeHead
-from ..dcnv3.modules.dcnv4 import DCNv4
+from ..dcnv3.modules.dao import DAO
 from einops import rearrange
 
 
@@ -221,50 +221,50 @@ class SideAdapterNetwork(nn.Module):
             cfg_encoder: ConfigType = ...,
             cfg_decoder: ConfigType = ...,
             norm_cfg: dict = dict(type='LN'),
-            dcnv4_after_fusion: bool = False,
-            cfg_dcnv4: ConfigType = ...,
+            dao_after_fusion: bool = False,
+            cfg_dao: ConfigType = ...,
     ):
         super().__init__()
-        dcnv4_list = []
+        dao_list = []
         for i in range(len(fusion_index)):
-            dcnv4_list.append(
-                DCNv4(
-                    channels=cfg_dcnv4.channels,
-                    group=cfg_dcnv4.group,
-                    kernel_size=cfg_dcnv4.kernel_size,
-                    stride=cfg_dcnv4.stride,
-                    pad=cfg_dcnv4.pad,
-                    dilation=cfg_dcnv4.dilation,
-                    offset_scale=cfg_dcnv4.offset_scale,
-                    act_layer=cfg_dcnv4.act_layer,
-                    norm_layer=cfg_dcnv4.norm_layer,
-                    dw_kernel_size=cfg_dcnv4.dw_kernel_size,
-                    center_feature_scale=cfg_dcnv4.center_feature_scale,
-                    pa_kernel_size=cfg_dcnv4.pa_kernel_size,
-                    pa_norm_layer=cfg_dcnv4.pa_norm_layer,
+            dao_list.append(
+                DAO(
+                    channels=cfg_dao.channels,
+                    group=cfg_dao.group,
+                    kernel_size=cfg_dao.kernel_size,
+                    stride=cfg_dao.stride,
+                    pad=cfg_dao.pad,
+                    dilation=cfg_dao.dilation,
+                    offset_scale=cfg_dao.offset_scale,
+                    act_layer=cfg_dao.act_layer,
+                    norm_layer=cfg_dao.norm_layer,
+                    dw_kernel_size=cfg_dao.dw_kernel_size,
+                    center_feature_scale=cfg_dao.center_feature_scale,
+                    pa_kernel_size=cfg_dao.pa_kernel_size,
+                    pa_norm_layer=cfg_dao.pa_norm_layer,
                 ))
-        self.dcnv4_list = nn.ModuleList(dcnv4_list)
-        self.dcnv4_after_fusion = dcnv4_after_fusion
-        if dcnv4_after_fusion:
-            dcnv4_after_fusion_list = []
+        self.dao_list = nn.ModuleList(dao_list)
+        self.dao_after_fusion = dao_after_fusion
+        if dao_after_fusion:
+            dao_after_fusion_list = []
             for i in range(len(fusion_index)):
-                dcnv4_after_fusion_list.append(
-                    DCNv4(
-                        channels=cfg_dcnv4.channels,
-                        group=cfg_dcnv4.group,
-                        kernel_size=cfg_dcnv4.kernel_size,
-                        stride=cfg_dcnv4.stride,
-                        pad=cfg_dcnv4.pad,
-                        dilation=cfg_dcnv4.dilation,
-                        offset_scale=cfg_dcnv4.offset_scale,
-                        act_layer=cfg_dcnv4.act_layer,
-                        norm_layer=cfg_dcnv4.norm_layer,
-                        dw_kernel_size=cfg_dcnv4.dw_kernel_size,
-                        center_feature_scale=cfg_dcnv4.center_feature_scale,
-                        pa_kernel_size=cfg_dcnv4.pa_kernel_size,
-                        pa_norm_layer=cfg_dcnv4.pa_norm_layer,
+                dao_after_fusion_list.append(
+                    DAO(
+                        channels=cfg_dao.channels,
+                        group=cfg_dao.group,
+                        kernel_size=cfg_dao.kernel_size,
+                        stride=cfg_dao.stride,
+                        pad=cfg_dao.pad,
+                        dilation=cfg_dao.dilation,
+                        offset_scale=cfg_dao.offset_scale,
+                        act_layer=cfg_dao.act_layer,
+                        norm_layer=cfg_dao.norm_layer,
+                        dw_kernel_size=cfg_dao.dw_kernel_size,
+                        center_feature_scale=cfg_dao.center_feature_scale,
+                        pa_kernel_size=cfg_dao.pa_kernel_size,
+                        pa_norm_layer=cfg_dao.pa_norm_layer,
                     ))
-            self.dcnv4_after_fusion_list = nn.ModuleList(dcnv4_after_fusion_list)
+            self.dao_after_fusion_list = nn.ModuleList(dao_after_fusion_list)
         self.patch_embed = PatchEmbed(
             in_channels=in_channels,
             embed_dims=embed_dims,
@@ -388,16 +388,16 @@ class SideAdapterNetwork(nn.Module):
         fused_index = 0
         if self.fusion_index[fused_index] == 0:
             x1 = rearrange(x[:, -L:, ...], 'N (H W) C -> N H W C', H=hwshape[0])
-            x1 = self.dcnv4_list[fused_index](x1)
+            x1 = self.dao_list[fused_index](x1)
             x1 = rearrange(x1, 'N H W C -> N (H W) C')
             x = torch.cat([x[:, :-L, ...], x1], dim=1)
             if self.fuse_type == 'conv':
                 x = self.fuse_clip(fused_index, x, clip_features[0][0], hwshape, L)
             elif self.fuse_type == 'ca':
                 x = self.fuse_clip_ca(fused_index, x, clip_features[0][0], hwshape, L)
-            if self.dcnv4_after_fusion:
+            if self.dao_after_fusion:
                 x1 = rearrange(x[:, -L:, ...], 'N (H W) C -> N H W C', H=hwshape[0])
-                x1 = self.dcnv4_after_fusion_list[fused_index](x1)
+                x1 = self.dao_after_fusion_list[fused_index](x1)
                 x1 = rearrange(x1, 'N H W C -> N (H W) C')
                 x = torch.cat([x[:, :-L, ...], x1], dim=1)
             fused_index += 1
@@ -406,7 +406,7 @@ class SideAdapterNetwork(nn.Module):
             x = block(x)
             if index < len(self.fusion_index) and index == self.fusion_index[fused_index]:
                 x1 = rearrange(x[:, -L:, ...], 'N (H W) C -> N H W C', H=hwshape[0])
-                x1 = self.dcnv4_list[fused_index](x1)
+                x1 = self.dao_list[fused_index](x1)
                 x1 = rearrange(x1, 'N H W C -> N (H W) C')
                 x = torch.cat([x[:, :-L, ...], x1], dim=1)
                 if self.fuse_type == 'conv':
@@ -415,9 +415,9 @@ class SideAdapterNetwork(nn.Module):
                     x = self.fuse_clip_ca(fused_index, x, clip_features[fused_index][0], hwshape, L)
                 else:
                     raise NotImplementedError
-                if self.dcnv4_after_fusion:
+                if self.dao_after_fusion:
                     x1 = rearrange(x[:, -L:, ...], 'N (H W) C -> N H W C', H=hwshape[0])
-                    x1 = self.dcnv4_after_fusion_list[fused_index](x1)
+                    x1 = self.dao_after_fusion_list[fused_index](x1)
                     x1 = rearrange(x1, 'N H W C -> N (H W) C')
                     x = torch.cat([x[:, :-L, ...], x1], dim=1)
                 fused_index += 1

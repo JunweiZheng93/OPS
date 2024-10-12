@@ -82,8 +82,8 @@ model = dict(
                 num_mlp=3,
                 rescale=True),
             norm_cfg=dict(type='LN', eps=1e-6),
-            dcnv4_after_fusion=False,
-            cfg_dcnv4=dict(
+            dao_after_fusion=False,
+            cfg_dao=dict(
                 channels=240,  # intermediate feature map channels
                 group=12,
                 kernel_size=3,

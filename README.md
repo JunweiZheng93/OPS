@@ -121,8 +121,8 @@ The processed model should be placed in `pretrains` folder in the end (see datas
 ## Checkpoints
 
 The checkpoints can be downloaded from: <br>
-[Checkpoint without RERP](https://drive.google.com/file/d/1JlKFYKNc6MsRAyI5loAI0A4co5a87SHX/view?usp=sharing)  <br>
-[Checkpoint with RERP](https://drive.google.com/file/d/1Wuc8bmmRMTxSwgrMZ_0MK1DkWLtUppvj/view?usp=sharing)
+[Checkpoint without RERP](https://drive.google.com/file/d/1MxM5oFZnj4OnmdeDQdXrnZ9AoFNpc2Gg/view?usp=sharing)  <br>
+[Checkpoint with RERP](https://drive.google.com/file/d/1zgEXNOOHojQ7XRl-DHVGPh4lA4RtBv84/view?usp=sharing)
 
 ## Usage
 

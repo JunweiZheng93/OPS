@@ -14,7 +14,7 @@ model = dict(
     pretrained=pretrained,
     text_encoder=dict(dataset_name=None,
                       vocabulary=['beam', 'board', 'bookcase', 'ceiling', 'chair', 'clutter', 'column', 'door', 'floor', 'sofa', 'table', 'wall', 'window']),
-    decode_head=dict(num_classes=13, ops_cfg=dict(cfg_dcnv4=dict(dw_kernel_size=3))),
+    decode_head=dict(num_classes=13, ops_cfg=dict(cfg_dao=dict(dw_kernel_size=3))),
     test_cfg=dict(mode='slide', crop_size=crop_size, stride=(320, 320))
 )
 test_pipeline = [
