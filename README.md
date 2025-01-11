@@ -20,10 +20,12 @@ This project has been accepted by ECCV 2024! For more information about the proj
 
 ## Prerequisites
 
-Please make sure your CUDA==11.8 since we need to compile some operators. You can use the following command to check your CUDA version:
+Please make sure your CUDA==11.8, GCC==9, G++==9 since we need to compile some operators. You can use the following command to check your CUDA, GCC and G++ version:
 
 ```bash
 nvcc --version
+gcc --version
+g++ --version
 ```
 
 Then install all necessary packages:
@@ -116,7 +118,7 @@ Then use `tools/model_converters/clip2mmseg.py` to convert model into mmseg styl
 python tools/model_converters/clip2mmseg.py path/to/the/downloaded/pretrained/model/ViT-B-16.pt pretrains/ViT-B-16.pt  # the first path is the path of the downloaded model, the second one is the converted model
 ```
 
-The processed model should be placed in `pretrains` folder in the end (see dataset folder structure).
+The processed model should be placed in `pretrains` folder (see dataset folder structure).
 
 ## Checkpoints
 
