@@ -20,7 +20,7 @@ This project has been accepted by ECCV 2024! For more information about the proj
 
 ## Prerequisites
 
-Please make sure your CUDA is >= 11.6 since we need to compile some operators. You can use the following command to check your CUDA version:
+Please make sure your CUDA==11.8 since we need to compile some operators. You can use the following command to check your CUDA version:
 
 ```bash
 nvcc --version
@@ -113,7 +113,7 @@ Please download the pretrained CLIP using [this link](https://openaipublic.azure
 Then use `tools/model_converters/clip2mmseg.py` to convert model into mmseg style:
 
 ```bash
-python tools/model_converters/clip2mmseg.py <MODEL_PATH> <OUTPUT_PATH> 
+python tools/model_converters/clip2mmseg.py path/to/the/downloaded/pretrained/model/ViT-B-16.pt pretrains/ViT-B-16.pt  # the first path is the path of the downloaded model, the second one is the converted model
 ```
 
 The processed model should be placed in `pretrains` folder in the end (see dataset folder structure).
