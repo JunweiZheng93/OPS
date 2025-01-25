@@ -4,7 +4,7 @@ SHELL ["/bin/bash", "-c"]
 
 # install some necessary packages
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y git wget vim doxygen curl libjsoncpp-dev libepoxy-dev libglm-dev libosmesa6 libosmesa6-dev libglew-dev libopencv-dev python3-opencv python3-distutils openssh-server
+RUN apt update && apt install -y git wget unzip vim doxygen curl libjsoncpp-dev libepoxy-dev libglm-dev libosmesa6 libosmesa6-dev libglew-dev libopencv-dev python3-opencv python3-distutils openssh-server
 
 # uninstall the default python3.6
 RUN apt remove python3 -y && apt autoremove -y
