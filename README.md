@@ -20,6 +20,8 @@ This project has been accepted by ECCV 2024! For more information about the proj
 
 ## Prerequisites
 
+### Option 1: Without Docker
+
 Please make sure your CUDA==11.8, GCC==9, G++==9 since we need to compile some operators. You can use the following command to check your CUDA, GCC and G++ version:
 
 ```bash
@@ -42,6 +44,29 @@ mim install mmsegmentation==1.2.2
 pip install timm==0.9.8 einops==0.7.0 ftfy==6.1.1 pkbar==0.5 prettytable==3.9.0 py360convert==0.1.0 regex==2023.10.3 six==1.16.0
 cd ops/models/dcnv3 && bash make.sh
 ```
+
+### Option 2: With Docker
+
+You need to download this repository first since there is a Dockerfile inside. You need to build the Docker Image with this Dockerfile.
+
+Make sure you have installed the Nvidia Container Toolkit according to this [link](https://stackoverflow.com/questions/75118992/docker-error-response-from-daemon-could-not-select-device-driver-with-capab). Otherwise, you cannot use GPUs when running a docker container.
+
+```bash
+# build the Docker Image
+docker build -t ops:ubuntu18.04 .
+# run a Docker container with GPUs
+docker run --gpus all -it --name ops ops:ubuntu18.04
+```
+
+It's highly recommended that you use the above commands to create a workable environment and then follow the steps below if you are unfamiliar with Docker. Otherwise, you will have a permission problem.
+
+```bash
+# you are now in the Docker container
+git clone https://github.com/JunweiZheng93/OPS.git
+# compile DCNv3
+cd OPS/ops/models/dcnv3 && bash make.sh && cd /OPS
+```
+Now you're ready to go.
 
 ## Datasets
 
