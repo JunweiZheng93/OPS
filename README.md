@@ -55,7 +55,7 @@ Make sure you have installed the Nvidia Container Toolkit according to this [lin
 # build the Docker Image
 docker build -t ops:ubuntu18.04 .
 # run a Docker container with GPUs
-docker run --gpus all -it --name ops ops:ubuntu18.04
+docker run --gpus all -it --shm-size 10gb --name ops ops:ubuntu18.04
 ```
 
 It's highly recommended that you use the above commands to create a workable environment and then follow the steps below if you are unfamiliar with Docker. Otherwise, you will have a permission problem.
@@ -66,7 +66,7 @@ git clone https://github.com/JunweiZheng93/OPS.git
 # compile DCNv3
 cd OPS/ops/models/dcnv3 && bash make.sh && cd /OPS
 ```
-Now you're ready to go.
+Now you're ready to go. Please download datasets and pretrained CLIP inside the Docker container to avoid the permission problem if you're unfamiliar with Docker.
 
 ## Datasets
 
