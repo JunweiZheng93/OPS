@@ -14,11 +14,11 @@
 </p>
 
 
-## Homepage
+## 🏡 Homepage
 
 This project has been accepted by ECCV 2024! For more information about the project, please refer to our [project homepage](https://junweizheng93.github.io/publications/OPS/OPS.html).
 
-## Prerequisites
+## 🔧 Prerequisites
 
 ### Option 1: Without Docker
 
@@ -68,7 +68,7 @@ cd OPS/ops/models/dcnv3 && bash make.sh && cd /OPS
 ```
 Now you're ready to go. Please download datasets and pretrained CLIP inside the Docker container to avoid the permission problem if you're unfamiliar with Docker.
 
-## Datasets
+## 📚 Datasets
 
 We train our model on COCO-Stuff164k dataset while testing on WildPASS, Matterport3D and Stanford2D3D datasets.
 The dataset folder structure is as follows:
@@ -134,7 +134,7 @@ and preprocess Matterport3D dataset.
 Please follow [360BEV official repository](https://github.com/jamycheung/360BEV) to download
 and preprocess Stanford2D3D dataset.
 
-## Pretrained CLIP
+## 🖥 Pretrained CLIP
 
 Please download the pretrained CLIP using [this link](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt).
 Then use `tools/model_converters/clip2mmseg.py` to convert model into mmseg style:
@@ -145,13 +145,13 @@ python tools/model_converters/clip2mmseg.py path/to/the/downloaded/pretrained/mo
 
 The processed model should be placed in `pretrains` folder (see dataset folder structure).
 
-## Checkpoints
+## 🖥 Checkpoints
 
 The checkpoints can be downloaded from: <br>
 [Checkpoint without RERP](https://drive.google.com/file/d/1MxM5oFZnj4OnmdeDQdXrnZ9AoFNpc2Gg/view?usp=sharing)  <br>
 [Checkpoint with RERP](https://drive.google.com/file/d/1zgEXNOOHojQ7XRl-DHVGPh4lA4RtBv84/view?usp=sharing)
 
-## Usage
+## 📦 Usage
 
 ### Train
 
@@ -173,7 +173,7 @@ bash tools/dist_test.sh <CONFIG_PATH> <CHECKPOINT_PATH> <GPU_NUM>
 
 `<CONFIG_PATH>` should be the path of the WildPASS, Matterport3D or Stanford2D3D config file. `<CHECKPOINT_PATH>` should be the path of the COCO_Stuff164k checkpoint file.
 
-## Citation
+## 📖 Citation
 If you are interested in this work, please cite as below:
 
 ```text
