@@ -122,34 +122,25 @@ python tools/dataset_converters/add_erp.py --shuffle
 ### WildPASS
 
 Please follow [WildPASS official repository](https://github.com/elnino9ykl/WildPASS) to download
-and preprocess WildPASS dataset.
+and preprocess WildPASS dataset. Alternatively, you can also download directly from: [ECCV'24 OPS Collection](https://huggingface.co/collections/JunweiZheng/eccv24-ops-68176527ffaf45632c4993e1).
 
 ### Matterport3D
 
 Please follow [360BEV official repository](https://github.com/jamycheung/360BEV) to download
-and preprocess Matterport3D dataset.
+and preprocess Matterport3D dataset. Alternatively, you can also download directly from: [ECCV'24 OPS Collection](https://huggingface.co/collections/JunweiZheng/eccv24-ops-68176527ffaf45632c4993e1).
 
 ### Stanford2D3D
 
 Please follow [360BEV official repository](https://github.com/jamycheung/360BEV) to download
-and preprocess Stanford2D3D dataset.
+and preprocess Stanford2D3D dataset. Alternatively, you can also download directly from: [ECCV'24 OPS Collection](https://huggingface.co/collections/JunweiZheng/eccv24-ops-68176527ffaf45632c4993e1).
 
 ## 🖥 Pretrained CLIP
 
-Please download the pretrained CLIP using [this link](https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt).
-Then use `tools/model_converters/clip2mmseg.py` to convert model into mmseg style:
-
-```bash
-python tools/model_converters/clip2mmseg.py path/to/the/downloaded/pretrained/model/ViT-B-16.pt pretrains/ViT-B-16.pt  # the first path is the path of the downloaded model, the second one is the converted model
-```
-
-The processed model should be placed in `pretrains` folder (see dataset folder structure).
+The pretrained CLIP can be downloaded from: [ECCV'24 OPS Collection](https://huggingface.co/collections/JunweiZheng/eccv24-ops-68176527ffaf45632c4993e1). The processed model should be placed in `pretrains` folder (see dataset folder structure).
 
 ## 🖥 Checkpoints
 
-The checkpoints can be downloaded from: <br>
-[Checkpoint without RERP](https://drive.google.com/file/d/1MxM5oFZnj4OnmdeDQdXrnZ9AoFNpc2Gg/view?usp=sharing)  <br>
-[Checkpoint with RERP](https://drive.google.com/file/d/1zgEXNOOHojQ7XRl-DHVGPh4lA4RtBv84/view?usp=sharing)
+The checkpoints can be downloaded from: [ECCV'24 OPS Collection](https://huggingface.co/collections/JunweiZheng/eccv24-ops-68176527ffaf45632c4993e1).
 
 ## 📦 Usage
 
