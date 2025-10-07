@@ -25,8 +25,9 @@ RUN update-alternatives --install /usr/bin/pip pip /usr/local/bin/pip3 1
 
 # install python packages
 RUN pip install torch==2.1.0 torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cu118 && \
-    pip install lit==18.1.8 numpy==1.23.1 cmake==3.30.4 openmim==0.3.9 timm==0.9.8 einops==0.7.0 ftfy==6.1.1 pkbar==0.5 prettytable==3.9.0 py360convert==0.1.0 regex==2023.10.3 six==1.16.0 && \
-    mim install mmengine==0.9.0 mmcv==2.1.0 mmsegmentation==1.2.2
+    pip install lit==18.1.8 cmake==3.30.4 openmim==0.3.9 timm==0.9.8 einops==0.7.0 ftfy==6.1.1 pkbar==0.5 prettytable==3.9.0 py360convert==0.1.0 regex==2023.10.3 six==1.16.0 && \
+    mim install mmengine==0.9.0 mmcv==2.1.0 mmsegmentation==1.2.2 && \
+    pip install numpy==1.23.1
 
 # install cuDNN
 RUN wget https://developer.download.nvidia.com/compute/redist/cudnn/v8.2.4/cudnn-11.4-linux-x64-v8.2.4.15.tgz && \
